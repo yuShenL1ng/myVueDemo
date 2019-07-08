@@ -12,6 +12,7 @@
 			<el-form-item style="width:100%;">
 				<el-button type="primary" class="loginBtn" @click="dataFormSubmit()">登录
 				</el-button>
+				<el-link type="primary" href="../#/register">没有账号?点击注册</el-link>
 			</el-form-item>
 		</el-form>
 		<!-- </div> -->

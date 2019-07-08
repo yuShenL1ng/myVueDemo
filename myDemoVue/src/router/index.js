@@ -11,6 +11,7 @@ import websocketDemo from '@/page/websocketDemo'
 import ehcarDemo from '@/page/ehcarDemo'
 import mapPlanning from '@/page/mapPlanning'
 import toEmil from '@/page/toEmil'
+import register from '@/page/register'
 Vue.use(Router)
 
 export default new Router({
@@ -28,6 +29,11 @@ export default new Router({
 			path: '/userCenter',
 			name: 'userCenter',
 			component: UserCenter
+		},
+		{
+			path: '/register',
+			name: 'register',
+			component: register
 		},
 		{
 			path: '/demoIndex',
