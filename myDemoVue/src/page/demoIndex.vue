@@ -8,7 +8,8 @@
 						<el-menu-item-group>
 							<template slot="title">管理模块</template>
 							<el-menu-item index="1-1">
-								<el-link type="primary" href="../#/demoIndex/heTongList">合同管理</el-link>
+								<!-- <el-link type="primary" href="../#/demoIndex/heTongList">合同管理</el-link> -->
+									<template slot="title">合同管理</template>
 							</el-menu-item>
 							<el-menu-item index="1-2">
 								<el-link type="primary" href="../#/demoIndex/xiaoShou">销售管理</el-link>
