@@ -9,6 +9,7 @@ import websocket from 'vue-native-websocket'
 import httpRequest from '@/utils/httpRequest'
 import ECharts from 'vue-echarts/components/ECharts'
 import VueAMap from 'vue-amap';
+import store from './store/index'
 import 'echarts'
 Vue.prototype.$http = httpRequest // ajax请求方法
 Vue.config.productionTip = false
@@ -26,6 +27,7 @@ VueAMap.initAMapApiLoader({
 new Vue({
 	el: '#app',
 	router,
+	store,
 	components: {
 		App
 	},

@@ -4,7 +4,7 @@
 		<h1>在线人数{{count}}人</h1>
 		<div>
 			在线人员:
-			<el-select v-model="selectList" filterable  placeholder="在线人员" value-key="id">
+			<el-select v-model="selectList" filterable placeholder="在线人员" value-key="id">
 				<el-option key="0" label="所有人" value=""></el-option>
 				<el-option v-for="item in nameList" :key="item.id" :label="item.label" :value="item"></el-option>
 			</el-select>
@@ -35,7 +35,7 @@
 				user: sessionStorage.getItem("name"),
 				count: 0,
 				nameList: [],
-				selectList :''
+				selectList: ''
 			}
 		},
 		mounted() {
@@ -75,16 +75,16 @@
 			},
 			setOnmessageMessage(event) {
 				debugger
-				 let userInfo = JSON.parse(event.data);
-				 if(userInfo.isLogin == 0){
-					 this.data += '欢迎：' + userInfo.fromUser + "来到聊天室<br/>";
-				 }else if(userInfo.isLogin == 1){
-					 if(userInfo.type == 0){
-						 this.data += userInfo.fromUser+"发布了广播:"+userInfo.msg+ "<br/>";
-					 }else{
-						 this.data += userInfo.fromUser+"对"+userInfo.toUser+"悄悄的说:"+userInfo.msg+ "<br/>";
-					 }
-				 }
+				let userInfo = JSON.parse(event.data);
+				if (userInfo.isLogin == 0) {
+					this.data += '欢迎：' + userInfo.fromUser + "来到聊天室<br/>";
+				} else if (userInfo.isLogin == 1) {
+					if (userInfo.type == 0) {
+						this.data += userInfo.fromUser + "发布了广播:" + userInfo.msg + "<br/>";
+					} else {
+						this.data += userInfo.fromUser + "对" + userInfo.toUser + "悄悄的说:" + userInfo.msg + "<br/>";
+					}
+				}
 				this.count = userInfo.countAll;
 				this.nameList = userInfo.nameList;
 			},
@@ -94,7 +94,6 @@
 			onbeforeunload() {
 				this.closeWebSocket();
 			},
-
 			//websocket发送消息
 			send() {
 				//this.websocket.send(this.text)
@@ -104,7 +103,7 @@
 				var socketMsg = {
 					msg: message,
 					toUser: toUser,
-					fromUser:sessionStorage.getItem("name")
+					fromUser: sessionStorage.getItem("name")
 				};
 				if (toUser == undefined || toUser == '' || toUser == '所有人') {
 					//群聊.

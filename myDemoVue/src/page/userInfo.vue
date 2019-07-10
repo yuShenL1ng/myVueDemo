@@ -1,5 +1,4 @@
 <template>
-	<!-- <div style="background : url(static/beijing.JPG);background-size: 100% 100%;width: 100%;height: 100%;"> -->
 		<el-form :model="dataForm" label-position="left" label-width="0px" class="demo-ruleForm login-container">
 			<h3 class="title">登陆界面</h3>
 			<el-form-item prop="account">
@@ -15,7 +14,6 @@
 				<el-link type="primary" href="../#/register">没有账号?点击注册</el-link>
 			</el-form-item>
 		</el-form>
-		<!-- </div> -->
 </template>
 
 <script>

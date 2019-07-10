@@ -16,9 +16,13 @@ const http = axios.create({
 /**
  * 请求拦截
  */
-/* http.interceptors.request.use(config => {
-  config.headers['token'] = Vue.cookie.get('token') // 请求头带上token
-  return config
+ /* http.interceptors.request.use(config => {
+   config.headers['token'] = Vue.cookie.get('token') // 请求头带上token
+  return config 
+	debugger
+	if(sessionStorage.getItem("name") == ''){
+		router.push({ name: 'userInfo' })
+	}
 }, error => {
   return Promise.reject(error)
 }) */

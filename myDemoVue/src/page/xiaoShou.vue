@@ -2,6 +2,7 @@
 	<el-main>
 			<el-button @click="addOrUpdateHandle()">新增订单</el-button>
 			<el-button @click="getContractInfoDemoList()">查询订单</el-button>
+			 <el-button @click="updateCaiDan()">修改列表名称</el-button>
 			<el-table :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" highlight-current-row>
 				<el-table-column type="index" width="50">
 				</el-table-column>
@@ -78,6 +79,9 @@
 						this.tableData = data
 					}
 				})
+			},
+			updateCaiDan(){
+				this.$store.dispatch('actionsAddCount')
 			}
 		},
 	}

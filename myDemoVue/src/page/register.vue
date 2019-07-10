@@ -2,7 +2,7 @@
 	<el-main>
 		<el-form :model="regusterForm" :rules="rules" ref="regusterForm" label-width="100px" class="demo-ruleForm">
 			<el-form-item label="用户名" prop="username">
-				<el-input v-model="regusterForm.username" @change='usernameChange($event)'></el-input>
+				<el-input :disabled="nameOn" v-model="regusterForm.username" @change='usernameChange($event)'  ></el-input>
 			</el-form-item>
 			<el-form-item label="密码" prop="password">
 				<el-input type="password" v-model="regusterForm.password" auto-complete="off" placeholder="请输入密码"></el-input>
@@ -48,6 +48,8 @@
 	export default {
 		data() {
 			return {
+				nameOn:false,
+				id:0,
 				regusterForm: {
 					username: '',
 					password: '',
@@ -100,14 +102,38 @@
 				}
 			};
 		},
+		mounted() {
+			let mm = this.$route.params.name;
+			if(mm!=undefined){
+				this.$http({
+					url: this.$http.adornUrl('login/login.action'),
+					method: 'post',
+					data: this.$http.adornData({
+						'username': mm
+					})
+				}).then(({
+					data
+				}) => {
+					if (data != '') {
+						this.nameOn = true
+						this.id = data.id
+						this.regusterForm.username = data.username
+						this.regusterForm.rolecode = data.rolecode.split(',')
+						this.regusterForm.sex = data.sex
+						this.regusterForm.birthday = data.birthday
+					} 
+				})
+			}
+		},
 		methods: {
 			submitForm(formName) {
 				this.$refs[formName].validate((valid) => {
 					if (valid) {
 						this.$http({
-							url: this.$http.adornUrl('login/insertUserInfo.action'),
+							url: this.$http.adornUrl(`/login/${!this.id ? 'insertUserInfo.action' : 'updateUserInfo.action'}`),
 							method: 'post',
 							data: this.$http.adornData({
+								'id':this.id,
 								'username': this.regusterForm.username,
 								'password': this.regusterForm.password,
 								'rolecode': this.regusterForm.rolecode.join(','),
@@ -121,7 +147,7 @@
 								// this.$cookie.set('token', data.token)
 								this.$notify({
 									title: '成功',
-									message: '注册成功',
+									message: '操作成功',
 									type: 'success'
 								});
 								this.$router.replace({
@@ -151,7 +177,7 @@
 				}).then(({
 					data
 				}) => {
-					if (data.code != 'error') {
+					if (data != '') {
 						this.regusterForm.username = ''
 						this.$notify({
 							title: '警告',
