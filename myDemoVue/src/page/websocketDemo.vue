@@ -9,8 +9,8 @@
 				<el-option v-for="item in nameList" :key="item.id" :label="item.label" :value="item"></el-option>
 			</el-select>
 		</div>
-		<div v-html="data"></div>
-		<input type="text" v-model="text">
+		<div ref='divText' class="dataText" v-html="data"></div>
+		<input type="text" v-model="text" @keyup.enter="send">
 		<el-button @click="send()">发送消息</el-button>
 		<br>
 		<el-button @click="closeWebSocket()">退出房间</el-button>
@@ -74,7 +74,6 @@
 				this.data = "聊天室连接成功<br/>";
 			},
 			setOnmessageMessage(event) {
-				debugger
 				let userInfo = JSON.parse(event.data);
 				if (userInfo.isLogin == 0) {
 					this.data += '欢迎：' + userInfo.fromUser + "来到聊天室<br/>";
@@ -87,6 +86,9 @@
 				}
 				this.count = userInfo.countAll;
 				this.nameList = userInfo.nameList;
+				this.$nextTick(() => {
+					this.$refs.divText.scrollTop = this.$refs.divText.scrollHeight
+				})
 			},
 			setOncloseMessage() {
 				this.data = "WebSocket连接关闭" + '   状态码：' + this.websocket.readyState;
@@ -145,5 +147,10 @@
 </script>
 
 <style>
-
+	.dataText {
+		width: 400px;
+		height: 335px;
+		border: #000000 solid 1px;
+		overflow-y: auto
+	}
 </style>

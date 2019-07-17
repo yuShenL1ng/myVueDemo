@@ -15,7 +15,7 @@ module.exports = {
 				target: 'http://192.168.1.7:8181', // 后台访问地址
 				changeOrigin: true,
 				pathRewrite: {
-					'^/api': 'http://192.168.1.7:8181'
+					'^/api': ''
 				}
 			}
 		},

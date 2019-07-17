@@ -100,8 +100,10 @@
 						});
 						this.xiaoshouFrom.name = ''
 						this.xiaoshouFrom.region = ''
-						this.visible = false;
-						this.$emit('refreshDataList')
+						this.$nextTick(() => {
+							this.visible = false;
+							this.$emit('refreshDataList')
+						})
 					} else {
 						alert('操作失败')
 					}
