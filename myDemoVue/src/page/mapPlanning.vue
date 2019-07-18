@@ -3,10 +3,6 @@
 		<el-amap ref="map" vid="amapDemo" :amap-manager="amapManager" :center="center" :zoom="zoom" :plugin="plugin" :events="events"
 		 class="amap-demo">
 		</el-amap>
-
-		<div class="toolbar">
-			<button @click="getMap()">get map</button>
-		</div>
 	</div>
 </template>
 
@@ -52,14 +48,6 @@
 					}
 				}]
 			};
-		},
-		methods: {
-			getMap() {
-				// amap vue component
-				console.log(amapManager._componentMap);
-				// gaode map instance
-				console.log(amapManager._map);
-			}
 		}
 	};
 </script>

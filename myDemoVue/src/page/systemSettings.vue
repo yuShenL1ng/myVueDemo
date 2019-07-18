@@ -20,7 +20,6 @@
 		},
 		methods:{
 			colorUpdate(){
-				debugger
 				localStorage.setItem('headerMenuBackgroundColor', this.systemInfo.color);
 				this.$store.dispatch('actionSystemInfoUpdate',this.systemInfo.color)
 			}

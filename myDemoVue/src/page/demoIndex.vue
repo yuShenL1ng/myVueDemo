@@ -120,7 +120,6 @@
             })
 			},
 			headerMenuBackgroundColor: function() {
-				debugger
 				return this.$store.state.headerMenuBackgroundColor;
 			},
 			systemInfo(){
