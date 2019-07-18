@@ -32,8 +32,8 @@
 							<el-menu-item index="">{{$store.state.count}}</el-menu-item>
 						</el-menu-item-group>
 						<el-submenu index="2-4">
-							<template slot="title">选项4</template>
-							<el-menu-item index="">选项4-1</el-menu-item>
+							<template slot="title">系统设置</template>
+							<el-menu-item index="/demoIndex/systemSettings">界面设置</el-menu-item>
 						</el-submenu>
 					</el-submenu>
 					<el-submenu index="3">
@@ -55,10 +55,10 @@
 			</el-aside>
 
 			<el-container>
-				<el-header style="text-align: right; font-size: 12px">
+				<el-header :style="headerCss">
 					<el-menu :default-active="this.$route.path" router class="el-menu-demo" mode="horizontal" @select="handleSelect"
-					 background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
-						<el-menu-item index="1">处理中心</el-menu-item>
+					 :background-color="headerMenuBackgroundColor()" text-color="#fff" active-text-color="#ffd04b">
+						<el-menu-item index="">处理中心</el-menu-item>
 						<el-submenu index="2">
 							<template slot="title">我的工作台</template>
 							<el-menu-item index="/demoIndex/websocketDemo">聊天室</el-menu-item>
@@ -69,11 +69,11 @@
 								<template slot="title">信息管理</template>
 								<el-menu-item index="/demoIndex/xiaoShou">销售管理</el-menu-item>
 								<el-menu-item index="" @click='goUserInfo'>个人信息</el-menu-item>
-								<el-menu-item index="2-4-3">选项3</el-menu-item>
+								<el-menu-item index="">选项3</el-menu-item>
 							</el-submenu>
 						</el-submenu>
-						<el-menu-item index="3" disabled>消息中心</el-menu-item>
-						<el-menu-item index="4"><a @click="outLogin">退出登陆</a></el-menu-item>
+						<el-menu-item index="" disabled>消息中心</el-menu-item>
+						<el-menu-item index="" @click="outLogin">退出登陆</el-menu-item>
 					</el-menu>
 				</el-header>
 				<!-- <el-tree :data="data" show-checkbox node-key="id" :default-expanded-keys="[2, 3]" :default-checked-keys="[5]"
@@ -88,7 +88,17 @@
 <script>
 	export default {
 		data() {
-			return {};
+			return {
+				headerCss:{
+					'color':'#333',
+					'line-height': '60px',
+					'text-align': 'right',
+					'font-size': '12px'
+				}
+			};
+		},
+		mounted(){
+			this.systemInfo()
 		},
 		methods: {
 			handleSelect(key, keyPath) {
@@ -108,17 +118,21 @@
                     name: sessionStorage.getItem("name")
                 }
             })
+			},
+			headerMenuBackgroundColor: function() {
+				debugger
+				return this.$store.state.headerMenuBackgroundColor;
+			},
+			systemInfo(){
+				if(localStorage.getItem('headerMenuBackgroundColor') != null && localStorage.getItem('headerMenuBackgroundColor') != '' ){
+					this.$store.dispatch('actionSystemInfoUpdate',localStorage.getItem('headerMenuBackgroundColor'))
+				}
 			}
 		}
 	}
 </script>
 
 <style>
-	.el-header {
-		color: #333;
-		line-height: 60px;
-	}
-
 	.el-aside {
 		color: #333;
 	}

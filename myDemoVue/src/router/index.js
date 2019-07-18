@@ -12,6 +12,7 @@ import ehcarDemo from '@/page/ehcarDemo'
 import mapPlanning from '@/page/mapPlanning'
 import toEmil from '@/page/toEmil'
 import register from '@/page/register'
+import systemSettings from '@/page/systemSettings'
 Vue.use(Router)
 
 export default new Router({
@@ -63,6 +64,10 @@ export default new Router({
 				path: 'toEmil',
 				name: 'toEmil',
 				component: toEmil
+			},{
+				path: 'systemSettings',
+				name: 'systemSettings',
+				component: systemSettings
 			}],
 		}
 	]
