@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<el-container style="height: 100%; border: 1px solid #eee">
-			<el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+			<el-aside  style="background-color: rgb(238, 241, 246)">
 				<el-menu :default-openeds="['1', '2']" default-active="this.$route.path" router>
 					<el-submenu index="1">
 						<template slot="title"><i class="el-icon-message"></i>导航一</template>
@@ -82,10 +82,15 @@
 				<router-view></router-view>
 			</el-container>
 		</el-container>
+		<div class="live2d-panel"></div>
+		<dialogue v-if="isDialogue" :customDialogue="customDialogue" ref="dialogue"></dialogue>
+		<live2d class="live2dBox" v-if="islive2d" :width ="modelWidth " :height="modelheight" :modelPath="modelPath" ref="l2dMange"></live2d>
+		<div class="tools-panel"></div>
 	</div>
 </template>
 
 <script>
+	import custom from 'live2d-vue/src/custom';
 	export default {
 		data() {
 			return {
@@ -94,11 +99,30 @@
 					'line-height': '60px',
 					'text-align': 'right',
 					'font-size': '12px'
-				}
+				},
+				modelheight:300,
+				modelWidth:200,
+				modelPath: 'http://192.168.1.7:8182/static/live2d-widget-model-shizuku/assets/shizuku.model.json',
+				customDialogue: custom,
+				islive2d: true,
+				isDialogue: false
 			};
 		},
 		mounted(){
-			this.systemInfo()
+			this.systemInfo(),
+			 setInterval(()=>{
+			  fetch('https://api.imjad.cn/hitokoto/?cat=&charset=utf-8&length=28&encode=json')
+			    .then(res => res.json())
+			    .then(data => {
+			      if(!this.isDialogue){
+			        let tool = this.$refs.tool.filter(item => { return item.customDialogue })
+			        if(tool && tool.length > 0)
+			          tool[0].showMessage(data.hitokoto)
+			      }else{
+			        this.$refs.dialogue.showMessage(data.hitokoto)
+			      }
+			  })
+			},30000)
 		},
 		methods: {
 			handleSelect(key, keyPath) {
@@ -126,6 +150,51 @@
 				if(localStorage.getItem('headerMenuBackgroundColor') != null && localStorage.getItem('headerMenuBackgroundColor') != '' ){
 					this.$store.dispatch('actionSystemInfoUpdate',localStorage.getItem('headerMenuBackgroundColor'))
 				}
+			},
+			 toolsClick(item){
+			  switch(item.tabMsg)
+			  {
+			    case 'home': 
+			      window.open("https://github.com/LingHanChuJian/live2d-vue")
+			      break
+			    case 'change':
+			      // this.$refs.l2dMange.initL2dMange('http://127.0.0.1:8000/media/static/live2d/Pio/model.json')
+			      // this.modelPath = 'http://127.0.0.1:8000/media/static/live2d/Pio/model.json'
+			      break
+			    case 'save':
+			      window.Live2D.captureName = `live2d-${Date.now()}.png` 
+			      window.Live2D.captureFrame = true
+			      break
+			    case 'about': 
+			      window.open("https://github.com/LingHanChuJian/live2d-vue")
+			      break
+			    case 'hide': 
+			      this.islive2d = false
+			      this.toolsDisplay('hide')
+			      break
+			    case 'show':
+			      this.islive2d = true
+			      this.toolsDisplay('show')
+			      break
+			  }
+			},
+			toolsDisplay(display){
+			  for(let i=0,len=this.toolsData.length;i<len;i++){
+			    let tabMsg =  this.toolsData[i].tabMsg
+			    if(display === 'hide'){
+			      if(tabMsg === 'home' || tabMsg === 'about')
+			        continue
+			      this.toolsData[i].show = false
+			      if(tabMsg === 'hide'){
+			        this.toolsData[i].show = true
+			        this.toolsData[i].tabMsg = 'show'
+			      }
+			    }else{
+			      this.toolsData[i].show = true
+			      if(tabMsg === 'show')
+			        this.toolsData[i].tabMsg = 'hide'
+			    }
+			  }
 			}
 		}
 	}
@@ -134,5 +203,21 @@
 <style>
 	.el-aside {
 		color: #333;
+	}
+	.tools-panel{
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		max-width: 32px;
+	}
+	.live2d-panel{
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	}
+	.live2dBox{
+		margin-top: -300px;
+		float: right;
+		z-index: 999;
 	}
 </style>

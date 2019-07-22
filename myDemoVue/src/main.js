@@ -10,11 +10,13 @@ import httpRequest from '@/utils/httpRequest'
 import ECharts from 'vue-echarts/components/ECharts'
 import VueAMap from 'vue-amap';
 import store from './store/index'
+import live2d from 'live2d-vue'
 import 'echarts'
 Vue.prototype.$http = httpRequest // ajax请求方法
 Vue.config.productionTip = false
 Vue.use(ElementUI);
 Vue.use(VueAMap);
+Vue.use(live2d);
 Vue.component('chart', ECharts)
 Vue.prototype.$websocket = websocket
 
