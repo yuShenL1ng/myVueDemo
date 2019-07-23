@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<el-container style="height: 100%; border: 1px solid #eee">
-			<el-aside  style="background-color: rgb(238, 241, 246)">
+			<el-aside style="background-color: rgb(238, 241, 246)">
 				<el-menu :default-openeds="['1', '2']" default-active="this.$route.path" router>
 					<el-submenu index="1">
 						<template slot="title"><i class="el-icon-message"></i>导航一</template>
@@ -59,12 +59,11 @@
 					<el-menu :default-active="this.$route.path" router class="el-menu-demo" mode="horizontal" @select="handleSelect"
 					 :background-color="headerMenuBackgroundColor()" text-color="#fff" active-text-color="#ffd04b">
 						<el-menu-item index="">处理中心</el-menu-item>
-						<el-submenu index="2">
+						<el-submenu index="">
 							<template slot="title">我的工作台</template>
 							<el-menu-item index="/demoIndex/websocketDemo">聊天室</el-menu-item>
 							<el-menu-item index="/demoIndex/ehcarDemo">echar图</el-menu-item>
-							<el-menu-item index="/demoIndex/mapPlanning">地图展示</el-link>
-							</el-menu-item>
+							<el-menu-item index="/demoIndex/mapPlanning">地图展示</el-menu-item>
 							<el-submenu index="2-4">
 								<template slot="title">信息管理</template>
 								<el-menu-item index="/demoIndex/xiaoShou">销售管理</el-menu-item>
@@ -74,6 +73,18 @@
 						</el-submenu>
 						<el-menu-item index="" disabled>消息中心</el-menu-item>
 						<el-menu-item index="" @click="outLogin">退出登陆</el-menu-item>
+						<el-menu-item style="float: right;" index="">
+							<el-popover placement="right" width="400" trigger="hover">
+								<el-calendar>
+									<template slot="dateCell" slot-scope="{date, data}">
+										<p :class="data.isSelected ? 'is-selected' : ''">
+											{{ data.day.split('-').slice(1).join('-') }} {{ data.isSelected ? '✔️' : ''}}
+										</p>
+									</template>
+								</el-calendar>
+								<el-button slot="reference">签到</el-button>
+							</el-popover>
+						</el-menu-item>
 					</el-menu>
 				</el-header>
 				<!-- <el-tree :data="data" show-checkbox node-key="id" :default-expanded-keys="[2, 3]" :default-checked-keys="[5]"
@@ -84,7 +95,7 @@
 		</el-container>
 		<div class="live2d-panel"></div>
 		<dialogue v-if="isDialogue" :customDialogue="customDialogue" ref="dialogue"></dialogue>
-		<live2d class="live2dBox" v-if="islive2d" :width ="modelWidth " :height="modelheight" :modelPath="modelPath" ref="l2dMange"></live2d>
+		<live2d class="live2dBox" v-if="islive2d" :width="modelWidth " :height="modelheight" :modelPath="modelPath" ref="l2dMange"></live2d>
 		<div class="tools-panel"></div>
 	</div>
 </template>
@@ -94,21 +105,22 @@
 	export default {
 		data() {
 			return {
-				headerCss:{
-					'color':'#333',
+				headerCss: {
+					'color': '#333',
 					'line-height': '60px',
 					'text-align': 'right',
 					'font-size': '12px'
 				},
-				modelheight:300,
-				modelWidth:200,
+				//dateValue: new Date(),
+				modelheight: 350,
+				modelWidth: 200,
 				modelPath: 'http://192.168.1.7:8182/static/live2d-widget-model-shizuku/assets/shizuku.model.json',
 				customDialogue: custom,
 				islive2d: true,
 				isDialogue: false
 			};
 		},
-		mounted(){
+		mounted() {
 			this.systemInfo()
 		},
 		methods: {
@@ -121,21 +133,22 @@
 					name: 'userInfo'
 				})
 			},
-			goUserInfo(){
+			goUserInfo() {
 				this.$router.push({
-                path:'/register',
-                name: 'register',
-                params: { 
-                    name: sessionStorage.getItem("name")
-                }
-            })
+					path: '/register',
+					name: 'register',
+					params: {
+						name: sessionStorage.getItem("name")
+					}
+				})
 			},
 			headerMenuBackgroundColor: function() {
 				return this.$store.state.headerMenuBackgroundColor;
 			},
-			systemInfo(){
-				if(localStorage.getItem('headerMenuBackgroundColor') != null && localStorage.getItem('headerMenuBackgroundColor') != '' ){
-					this.$store.dispatch('actionSystemInfoUpdate',localStorage.getItem('headerMenuBackgroundColor'))
+			systemInfo() {
+				if (localStorage.getItem('headerMenuBackgroundColor') != null && localStorage.getItem('headerMenuBackgroundColor') !=
+					'') {
+					this.$store.dispatch('actionSystemInfoUpdate', localStorage.getItem('headerMenuBackgroundColor'))
 				}
 			}
 		}
@@ -146,20 +159,23 @@
 	.el-aside {
 		color: #333;
 	}
-	.tools-panel{
-		position: sticky;
-		left: 0;
+
+	.tools-panel {
+		position: fixed;
+		right: 0;
 		bottom: 0;
 		max-width: 32px;
 	}
-	.live2d-panel{
-	position: sticky;
-	left: 0;
-	bottom: 0;
+
+	.live2d-panel {
+		position: fixed;
+		right: 0;
+		bottom: 0;
 	}
-	.live2dBox{
-		position: sticky !important;
-		bottom:0;
-		float:right;
+
+	.live2dBox {
+		position: fixed !important;
+		bottom: 0;
+		right: 0;
 	}
 </style>
