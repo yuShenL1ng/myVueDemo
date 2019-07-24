@@ -40,8 +40,7 @@
 						<template slot="title"><i class="el-icon-setting"></i>导航三</template>
 						<el-menu-item-group>
 							<template slot="title">分组一</template>
-							<el-menu-item index="">选项1</el-menu-item>
-							<el-menu-item index="">选项2</el-menu-item>
+							<el-menu-item index="/demoIndex/bulletinList">最新公告</el-menu-item>
 						</el-menu-item-group>
 						<el-menu-item-group title="分组2">
 							<el-menu-item index="">选项3</el-menu-item>
@@ -71,6 +70,7 @@
 								<el-menu-item index="">选项3</el-menu-item>
 							</el-submenu>
 						</el-submenu>
+						<el-menu-item index="/demoIndex/bulletinList">最新公告</el-menu-item>
 						<el-menu-item index="" disabled>消息中心</el-menu-item>
 						<el-menu-item index="" @click="outLogin">退出登陆</el-menu-item>
 						<el-menu-item style="float: right;" index="">

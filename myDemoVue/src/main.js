@@ -11,12 +11,18 @@ import ECharts from 'vue-echarts/components/ECharts'
 import VueAMap from 'vue-amap';
 import store from './store/index'
 import live2d from 'live2d-vue'
+
+import quillEditor from "vue-quill-editor"; //调用编辑器
+import 'quill/dist/quill.core.css';
+import 'quill/dist/quill.snow.css';
+import 'quill/dist/quill.bubble.css';
 import 'echarts'
 Vue.prototype.$http = httpRequest // ajax请求方法
 Vue.config.productionTip = false
 Vue.use(ElementUI);
 Vue.use(VueAMap);
 Vue.use(live2d);
+Vue.use(quillEditor);
 Vue.component('chart', ECharts)
 Vue.prototype.$websocket = websocket
 

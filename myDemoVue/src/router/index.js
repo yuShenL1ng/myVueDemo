@@ -13,6 +13,9 @@ import mapPlanning from '@/page/mapPlanning'
 import toEmil from '@/page/toEmil'
 import register from '@/page/register'
 import systemSettings from '@/page/systemSettings'
+import richText from '@/page/richText'
+import bulletinList from '@/page/bulletinList'
+import bulletinInfo from '@/page/bulletinInfo'
 Vue.use(Router)
 
 export default new Router({
@@ -68,6 +71,18 @@ export default new Router({
 				path: 'systemSettings',
 				name: 'systemSettings',
 				component: systemSettings
+			},{
+				path: 'richText',
+				name: 'richText',
+				component: richText
+			},{
+				path: 'bulletinList',
+				name: 'bulletinList',
+				component: bulletinList
+			},{
+				path: 'bulletinInfo/:id',
+				name: 'bulletinInfo',
+				component: bulletinInfo
 			}],
 		}
 	]
