@@ -39,7 +39,7 @@
 				<el-button type="primary" @click="submitForm('regusterForm')">立即创建</el-button>
 				<el-button @click="resetForm('regusterForm')">重置</el-button>
 			</el-form-item>
-			<el-button><router-link to="/">返回首页</router-link></el-button>
+			<el-button @click="back()">返回</el-button>
 		</el-form>
 	</el-main>
 </template>
@@ -103,7 +103,8 @@
 			};
 		},
 		mounted() {
-			let mm = this.$route.params.name;
+			let mm = this.$route.query.name;
+			debugger
 			if(mm!=undefined){
 				this.$http({
 					url: this.$http.adornUrl('login/login.action'),
@@ -186,6 +187,9 @@
 						});
 					} 
 				})
+			},
+			back() {
+				this.$router.go(-1); //返回上一层,
 			}
 		}
 	}

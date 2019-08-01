@@ -35,7 +35,7 @@ export default new Router({
 			component: UserCenter
 		},
 		{
-			path: '/register/:name',
+			path: '/register',
 			name: 'register',
 			component: register
 		},

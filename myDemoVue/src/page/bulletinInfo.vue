@@ -36,7 +36,6 @@
 					data
 				}) => {
 					if (data != '') {
-						debugger
 						this.title = data[0].title;
 						this.html = data[0].html;
 						this.user = data[0].user;

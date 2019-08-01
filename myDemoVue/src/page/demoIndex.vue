@@ -121,6 +121,12 @@
 			};
 		},
 		mounted() {
+			//默认加载销售订单组件
+			if(this.$route.path == '/demoIndex'){
+				this.$router.replace({
+					name: 'xiaoShou'
+				})
+			}
 			this.systemInfo()
 		},
 		methods: {
@@ -137,7 +143,7 @@
 				this.$router.push({
 					path: '/register',
 					name: 'register',
-					params: {
+					query: {
 						name: sessionStorage.getItem("name")
 					}
 				})

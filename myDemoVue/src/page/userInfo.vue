@@ -1,19 +1,19 @@
 <template>
-		<el-form :model="dataForm" label-position="left" label-width="0px" class="demo-ruleForm login-container">
-			<h3 class="title">登陆界面</h3>
-			<el-form-item prop="account">
-				<el-input type="text" v-model="dataForm.userName" auto-complete="off" placeholder="请输入账号"></el-input>
-			</el-form-item>
-			<el-form-item prop="checkPass">
-				<el-input type="password" v-model="dataForm.password" auto-complete="off" placeholder="请输入密码"></el-input>
-			</el-form-item>
-			<el-checkbox v-model="checked" checked class="remember">记住密码</el-checkbox>
-			<el-form-item style="width:100%;">
-				<el-button type="primary" class="loginBtn" @click="dataFormSubmit()">登录
-				</el-button>
-				<el-link type="primary" href="../#/register">没有账号?点击注册</el-link>
-			</el-form-item>
-		</el-form>
+	<el-form :model="dataForm" :rules='rules' ref='dataForm' label-position="left" label-width="0px" class="demo-ruleForm login-container">
+		<h3 class="title">登陆界面</h3>
+		<el-form-item prop="userName">
+			<el-input type="text" v-model="dataForm.userName" auto-complete="off" placeholder="请输入账号"></el-input>
+		</el-form-item>
+		<el-form-item prop="password">
+			<el-input type="password" v-model="dataForm.password" auto-complete="off" placeholder="请输入密码"></el-input>
+		</el-form-item>
+		<el-checkbox v-model="checked" checked class="remember">记住密码</el-checkbox>
+		<el-form-item style="width:100%;">
+			<el-button type="primary" class="loginBtn" @click="dataFormSubmit('dataForm')">登录
+			</el-button>
+			<el-link type="primary" href="../#/register">没有账号?点击注册</el-link>
+		</el-form-item>
+	</el-form>
 </template>
 
 <script>
@@ -25,7 +25,7 @@
 					password: '',
 					uuid: '',
 				},
-				dataRule: {
+				rules: {
 					userName: [{
 						required: true,
 						message: '帐号不能为空',
@@ -41,27 +41,32 @@
 			}
 		},
 		methods: {
-			dataFormSubmit() {
-				this.$http({
-					url: this.$http.adornUrl('login/login.action'),
-					method: 'post',
-					data: this.$http.adornData({
-						'username': this.dataForm.userName,
-						'password': this.dataForm.password,
-						'uuid': this.dataForm.uuid
-					})
-				}).then(({
-					data
-				}) => {
-					debugger;
-					if (data.code != 'error') {
-						// this.$cookie.set('token', data.token)
-						sessionStorage.setItem("name", this.dataForm.userName);
-						this.$router.replace({
-							name: 'demoIndex'
+			dataFormSubmit(formName) {
+				this.$refs[formName].validate((valid) => {
+					if (valid) {
+						this.$http({
+							url: this.$http.adornUrl('login/login.action'),
+							method: 'post',
+							data: this.$http.adornData({
+								'username': this.dataForm.userName,
+								'password': this.dataForm.password,
+								'uuid': this.dataForm.uuid
+							})
+						}).then(({
+							data
+						}) => {
+							if (data != '') {
+								// this.$cookie.set('token', data.token)
+								sessionStorage.setItem("name", this.dataForm.userName);
+								this.$router.replace({
+									name: 'demoIndex'
+								})
+							} else {
+								alert('账号或者密码错误')
+							}
 						})
-					} else {
-						alert('账号或者密码错误')
+					}else{
+						return false;
 					}
 				})
 			}
