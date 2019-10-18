@@ -43,11 +43,11 @@
 							<el-menu-item index="/demoIndex/bulletinList">最新公告</el-menu-item>
 						</el-menu-item-group>
 						<el-menu-item-group title="分组2">
-							<el-menu-item index="">选项3</el-menu-item>
+							<el-menu-item index="/demoIndex/pachongDemo">爬虫</el-menu-item>
 						</el-menu-item-group>
 						<el-submenu index="3-4">
 							<template slot="title">选项4</template>
-							<el-menu-item index="">选项4-1</el-menu-item>
+							<el-menu-item index="/demoIndex/pachongDemo2">爬虫2</el-menu-item>
 						</el-submenu>
 					</el-submenu>
 				</el-menu>
@@ -93,10 +93,10 @@
 				<router-view></router-view>
 			</el-container>
 		</el-container>
-		<div class="live2d-panel"></div>
+<!-- 		<div class="live2d-panel"></div>
 		<dialogue v-if="isDialogue" :customDialogue="customDialogue" ref="dialogue"></dialogue>
 		<live2d class="live2dBox" v-if="islive2d" :width="modelWidth " :height="modelheight" :modelPath="modelPath" ref="l2dMange"></live2d>
-		<div class="tools-panel"></div>
+		<div class="tools-panel"></div> -->
 	</div>
 </template>
 
@@ -114,7 +114,7 @@
 				//dateValue: new Date(),
 				modelheight: 350,
 				modelWidth: 200,
-				modelPath: 'http://192.168.1.7:8182/static/live2d-widget-model-shizuku/assets/shizuku.model.json',
+				modelPath: 'http://localhost:8182/static/live2d-widget-model-shizuku/assets/shizuku.model.json',
 				customDialogue: custom,
 				islive2d: true,
 				isDialogue: false

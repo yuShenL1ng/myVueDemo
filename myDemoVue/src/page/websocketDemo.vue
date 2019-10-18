@@ -40,7 +40,7 @@
 		},
 		mounted() {
 			if ('WebSocket' in window) {
-				this.websocket = new WebSocket('ws://192.168.1.7:8181/websocket/' + this.user)
+				this.websocket = new WebSocket('ws://192.168.0.111:8181/websocket/' + this.user)
 				this.initWebSocket()
 			} else {
 				alert('当前浏览器 Not support websocket')

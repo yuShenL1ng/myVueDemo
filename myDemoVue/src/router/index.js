@@ -16,6 +16,8 @@ import systemSettings from '@/page/systemSettings'
 import richText from '@/page/richText'
 import bulletinList from '@/page/bulletinList'
 import bulletinInfo from '@/page/bulletinInfo'
+import pachongDemo from '@/page/pachongDemo'
+import pachongDemo2 from '@/page/pachongDemo2'
 Vue.use(Router)
 
 export default new Router({
@@ -83,6 +85,14 @@ export default new Router({
 				path: 'bulletinInfo/:id',
 				name: 'bulletinInfo',
 				component: bulletinInfo
+			},{
+				path: 'pachongDemo',
+				name: 'pachongDemo',
+				component: pachongDemo
+			},{
+				path: 'pachongDemo2',
+				name: 'pachongDemo2',
+				component: pachongDemo2
 			}],
 		}
 	]

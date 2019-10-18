@@ -1,7 +1,7 @@
 <template>
 	<el-main>
-		<chart style="width: 100%;height:50%;" ref="chart1" :options="orgOptions" :auto-resize="true"></chart>
-		<chart style="width: 50%;height:50%;" ref="chart1" :options="orgOptions2" :auto-resize="true"></chart>
+		<chart style="width: 100%;height: 18.75rem;" ref="chart1" :options="orgOptions" :auto-resize="false"></chart>
+		<chart style="width: 70%; " ref="chart1" :options="orgOptions2" :auto-resize="true"></chart>
 	</el-main>
 </template>
 
